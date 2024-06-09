@@ -124,11 +124,12 @@ def telegram_webhook(request):
                 django_user.save()
                 Profile.objects.create(user=django_user, name=username)  # Создаем профиль для нового пользователя
             else:
-                profile = Profile.objects.get(user=django_user)
-                profile.name = username
-                profile.save()
+                profile, profile_created = Profile.objects.get_or_create(user=django_user)
+                if profile_created:
+                    profile.name = username
+                    profile.save()
 
-            login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
+            login_url = f"https://coin-way-prod-cnhf39hbn-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
 
             return JsonResponse({'status': 'success', 'login_url': login_url})
 
@@ -136,7 +137,6 @@ def telegram_webhook(request):
             logger.error(f"Error in telegram_webhook: {e}")
             return JsonResponse({'status': 'failed', 'error': str(e)}, status=500)
     return JsonResponse({'status': 'failed', 'error': 'Invalid request method'}, status=405)
-
 
 def telegram_login(request, user_id):
     telegram_user = get_object_or_404(TelegramUser, user_id=user_id)

@@ -29,10 +29,7 @@ def profiles(request):
 def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮДА СМОТРИ
     profile = Profile.objects.get(id=pk)
 
-    topSkills = profile.skill_set.exclude(description__exact='')
-    otherSkills = profile.skill_set.filter(description='')
-
-    context = {'profile': profile, 'topSkills': topSkills, 'otherSkills': otherSkills}
+    context = {'profile': profile}
 
     return render(request, 'users/user-profile.html', context)
 

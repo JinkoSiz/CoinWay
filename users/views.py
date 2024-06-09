@@ -88,22 +88,11 @@ def telegram_webhook(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            logger.debug(f"Received raw data: {data}")
-
-            message = data.get('message', {})
-            if not message:
-                logger.error("No message found in data")
-                return JsonResponse({'status': 'failed', 'error': 'No message found'}, status=400)
-
-            user_data = message.get('from', {})
-            if not user_data:
-                logger.error("No user data found in message")
-                return JsonResponse({'status': 'failed', 'error': 'No user data found'}, status=400)
-
-            user_id = user_data.get('id')
-            first_name = user_data.get('first_name')
-            last_name = user_data.get('last_name')
-            username = user_data.get('username')
+            user_data = data['message']['from']
+            user_id = user_data['id']
+            first_name = user_data.get('first_name', '')
+            last_name = user_data.get('last_name', '') or ''  # Устанавливаем пустую строку, если last_name отсутствует
+            username = user_data.get('username', '')
 
             logger.debug(
                 f"Parsed user data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
@@ -130,26 +119,24 @@ def telegram_webhook(request):
             django_user, created = User.objects.get_or_create(username=user_id)
             if created:
                 django_user.first_name = first_name
-                django_user.last_name = last_name
+                django_user.last_name = last_name or ''  # Устанавливаем пустую строку, если last_name отсутствует
                 django_user.username = user_id
                 django_user.set_unusable_password()
                 django_user.save()
-                profile_image = get_telegram_user_photo(user_id)
-                Profile.objects.create(user=django_user, name=username, profile_image=profile_image)  # Создаем профиль для нового пользователя
+                Profile.objects.create(user=django_user, name=username)  # Создаем профиль для нового пользователя
             else:
                 profile = Profile.objects.get(user=django_user)
                 profile.name = username
-                profile.profile_image = get_telegram_user_photo(user_id)
                 profile.save()
 
-            login_url = f"https://devsearch-zpska1977.b4a.run/telegram-login/{user_id}/"
+            login_url = f"https://coin-way-prod-cnhf39hbn-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
 
             return JsonResponse({'status': 'success', 'login_url': login_url})
 
         except Exception as e:
             logger.error(f"Error in telegram_webhook: {e}")
             return JsonResponse({'status': 'failed', 'error': str(e)}, status=500)
-    return JsonResponse({'status': 'failed'}, status=400)
+    return JsonResponse({'status': 'failed', 'error': 'Invalid request method'}, status=405)
 
 
 def telegram_login(request, user_id):

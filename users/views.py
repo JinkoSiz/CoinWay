@@ -38,7 +38,7 @@ def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮ�
 def userAccount(request):
     profile = request.user.profile
 
-    context = {'profile': profile, 'projects': projects}
+    context = {'profile': profile}
     return render(request, 'users/account.html', context)
 
 

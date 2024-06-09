@@ -140,4 +140,4 @@ def telegram_login(request, user_id):
     django_user = get_object_or_404(User, username=telegram_user.user_id)
 
     login(request, django_user)
-    return redirect('user-profile', pk=django_user.profile.pk)
+    return redirect('account')

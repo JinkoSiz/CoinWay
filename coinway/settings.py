@@ -26,10 +26,11 @@ SECRET_KEY = 'django-insecure-6l*54-0b97ab1-j@z5)f9^fb0g3t71wolyvqjse3nk^q%-d%@!
 DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://devsearch-zpska1977.b4a.run'
+    'https://devsearch-zpska1977.b4a.run',
+    'https://coin-way-prod.vercel.app/'
 ]
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devsearch-zpska1977.b4a.run']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devsearch-zpska1977.b4a.run', 'coin-way-prod.vercel.app']
 
 # Application definition
 

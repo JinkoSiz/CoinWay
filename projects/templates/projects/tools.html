@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div class="tools-list">
+    <div class="row">
+        {% for tool in tools %}
+        <div class="col-6 tools-list-wrapper">
+            <a href="{% url 'tool' tool.id %}" class="tools-list-item">
+                <div class="tools-list-item-header">
+                    <div class="tools-list-item-img">
+                        <img src="{{ tool.imageURL }}" alt="tool-icon">
+                    </div>
+                    <div class="tools-list-item-title">{{ tool.title }}</div>
+                </div>
+                <div class="tools-list-item-description">
+                    {{ tool.description }}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<a href="{% url 'projects' %}" class="tools-ico">
+    <svg xmlns="http://www.w3.org/2000/svg" width="112" height="136" viewBox="0 0 112 136" fill="none">
+        <g filter="url(#filter0_d_110_1285)">
+            <circle cx="68" cy="58" r="34" fill="#0098EB"/>
+            <circle cx="68" cy="58" r="36" stroke="#EDEDED" stroke-width="4"/>
+        </g>
+        <path d="M66.7814 54.3531L66.783 72.9968H58.27C56.9242 72.9969 55.6293 72.4822 54.6509 71.5583C53.6725 70.6343 53.0847 69.3712 53.0081 68.0278L53 67.7312V54.3515L66.7814 54.3531ZM69.2137 64.0786H82.9984V67.7312C82.9984 69.1285 82.4432 70.4687 81.4548 71.4568C80.4665 72.4449 79.1261 73 77.7284 73L69.2153 72.9968L69.2137 64.0786ZM77.73 43.0032C79.0758 43.0031 80.3707 43.5178 81.3491 44.4417C82.3275 45.3657 82.9153 46.6288 82.9919 47.9722L83 48.2705L82.9984 61.6469H69.2137L69.2153 43.0016L77.73 43.0032ZM66.783 43L66.7814 51.9214H53V48.2705C53 46.8731 53.5552 45.5329 54.5435 44.5448C55.5319 43.5567 56.8723 43.0016 58.27 43.0016L66.783 43Z" fill="#EDEDED"/>
+        <defs>
+            <filter id="filter0_d_110_1285" x="0" y="0" width="136" height="136" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset dy="10"/>
+                <feGaussianBlur stdDeviation="15"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0.0993055 0 0 0 0 0.366667 0 0 0 0 0.347044 0 0 0 0.1 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_110_1285"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_110_1285" result="shape"/>
+            </filter>
+        </defs>
+    </svg>
+</a>
+{% endblock content %}

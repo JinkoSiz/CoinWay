@@ -129,7 +129,7 @@ def telegram_webhook(request):
                     profile.name = username
                     profile.save()
 
-            login_url = f"https://coin-way-prod-cnhf39hbn-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
+            login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
 
             return JsonResponse({'status': 'success', 'login_url': login_url})
 

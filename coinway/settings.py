@@ -31,7 +31,10 @@ CSRF_TRUSTED_ORIGINS = [
     'https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/'
 ]
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'devsearch-zpska1977.b4a.run', 'coin-way-prod.vercel.app', 'coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                 'devsearch-zpska1977.b4a.run',
+                 'coin-way-prod.vercel.app',
+                 'coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app',]
 
 # Application definition
 

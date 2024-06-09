@@ -116,11 +116,14 @@ def telegram_webhook(request):
                 django_user.username = user_id
                 django_user.set_unusable_password()
                 django_user.save()
-                Profile.objects.create(user=django_user, name=username)  # Создаем профиль для нового пользователя
+                profile_image_url = get_telegram_user_photo(user_id)
+                Profile.objects.create(user=django_user, name=username, profile_image=profile_image_url)  # Создаем профиль для нового пользователя
             else:
                 profile, profile_created = Profile.objects.get_or_create(user=django_user)
                 if profile_created:
                     profile.name = username
+                    profile_image_url = get_telegram_user_photo(user_id)
+                    profile.profile_image = profile_image_url
                     profile.save()
 
             login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"

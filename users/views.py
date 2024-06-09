@@ -17,52 +17,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
-def loginUser(request):
-    page = 'login'
-
-    if request.user.is_authenticated:
-        return redirect('profiles')
-
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        try:
-            user = User.objects.get(username=username)
-        except:
-            messages.error(request, 'Username or password is incorrect')
-
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect(request.GET['next'] if 'next' in request.GET else 'account')
-        else:
-            messages.error(request, 'Username or password is incorrect')
-
-    return render(request, 'users/login_register.html')
-
-def registerUser(request):
-    page = 'register'
-    form = CustomUserCreationForm()
-
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-
-            messages.success(request, 'User account was created!')
-
-            login(request, user)
-            return redirect('edit-account')
-
-    else:
-        messages.error(request, 'An error has occured!')
-
-    context = {'page': page, 'form': form}
-    return render(request, 'users/login_register.html', context)
 
 def profiles(request):
     profiles, search_query = searchProfiles(request)
@@ -174,7 +128,7 @@ def telegram_webhook(request):
                 profile.name = username
                 profile.save()
 
-            login_url = f"https://coin-way-prod-cnhf39hbn-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
+            login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
 
             return JsonResponse({'status': 'success', 'login_url': login_url})
 

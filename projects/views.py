@@ -9,7 +9,6 @@ from .utils import searchProjects, paginateProjects, searchTags, searchNetworks
 
 # Create your views here.
 
-
 def projects(request):
     projects, search_query = searchProjects(request)
     tags = searchTags(request)

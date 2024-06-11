@@ -23,7 +23,7 @@ def projects(request):
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)
 
-    return render(request, 'projects/single-project.html', {'project': projectObj, 'form': form})
+    return render(request, 'projects/single-project.html', {'project': projectObj})
 
 
 def tools(request):

@@ -1,20 +1,18 @@
 {
-  "builds": [
-    {
-      "src": "coinway/wsgi.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+  "functions": {
+    "api/telegram-webhook": {
+      "maxDuration": 60,
+      "runtime": "python3.9"
     }
-  ],
+  },
   "routes": [
+    {
+      "src": "/api/telegram-webhook",
+      "dest": "/api/telegram-webhook"
+    },
     {
       "src": "/(.*)",
       "dest": "coinway/wsgi.py"
     }
-  ],
-  "functions": {
-    "coinway/api/**/*": {
-      "maxDuration": 60
-    }
-  }
+  ]
 }

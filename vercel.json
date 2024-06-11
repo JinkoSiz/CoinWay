@@ -11,5 +11,10 @@
       "src": "/(.*)",
       "dest": "coinway/wsgi.py"
     }
-  ]
+  ],
+  "functions": {
+    "coinway/api/**/*": {
+      "maxDuration": 60
+    }
+  }
 }

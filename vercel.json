@@ -1,11 +1,11 @@
 {
-  "builds": [
-    {
-      "src": "coinway/wsgi.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+  "functions": {
+    "coinway/wsgi.py": {
+      "maxDuration": 60,
+      "runtime": "@vercel/python@3.9",
+      "maxLambdaSize": "15mb"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/(.*)",

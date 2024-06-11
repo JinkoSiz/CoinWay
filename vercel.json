@@ -2,8 +2,7 @@
   "functions": {
     "coinway/wsgi.py": {
       "maxDuration": 60,
-      "runtime": "@vercel/python@3.9",
-      "maxLambdaSize": "15mb"
+      "runtime": "@vercel/python@3.9"
     }
   },
   "routes": [

@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.views.decorators.cache import cache_page
+
 from .models import Profile, TelegramUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -18,6 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 def profiles(request):
     profiles, search_query = searchProfiles(request)
     custom_range, profiles = paginateProfiles(request, profiles, 6)
@@ -26,6 +29,7 @@ def profiles(request):
     return render(request, 'users/profiles.html', context)
 
 
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮДА СМОТРИ
     profile = Profile.objects.get(id=pk)
 
@@ -34,6 +38,7 @@ def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮ�
     return render(request, 'users/user-profile.html', context)
 
 
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 @login_required(login_url='login')
 def userAccount(request):
     profile = request.user.profile

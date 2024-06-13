@@ -5,7 +5,7 @@ import uuid
 
 
 class Project(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, db_index=True)
     video = models.CharField(max_length=200, null=True, blank=True, default='123')
     description = models.TextField(null=True, blank=True)
     featured_image = models.ImageField(null=True, blank=True, default='default.jpg')
@@ -55,7 +55,7 @@ class Project(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
@@ -64,7 +64,7 @@ class Tag(models.Model):
 
 
 class Network(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, db_index=True)
     featured_image = models.ImageField(null=True, blank=True, default='default.jpg')
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)

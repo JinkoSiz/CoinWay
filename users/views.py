@@ -110,6 +110,8 @@ def telegram_webhook(request):
                 user.save()
 
             django_user, created = User.objects.get_or_create(username=user_id)
+            profile_image_url = get_telegram_user_photo(user_id)
+
             if created:
                 django_user.first_name = first_name
                 django_user.last_name = last_name or ''  # Устанавливаем пустую строку, если last_name отсутствует
@@ -117,7 +119,7 @@ def telegram_webhook(request):
                 django_user.set_unusable_password()
                 django_user.save()
                 profile_image_url = get_telegram_user_photo(user_id)
-                Profile.objects.create(user=django_user, name=username, profile_image=profile_image_url)  # Создаем профиль для нового пользователя
+                Profile.objects.create(user=django_user, name=username, profile_image=profile_image_url)
             else:
                 profile, profile_created = Profile.objects.get_or_create(user=django_user)
                 if profile_created:

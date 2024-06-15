@@ -25,7 +25,7 @@ def profiles(request):
     profiles, search_query = searchProfiles(request)
     custom_range, profiles = paginateProfiles(request, profiles, 6)
 
-    context = {'profiles': profiles, 'search_query': search_query, 'custom_range': custom_range}
+    context = {'profiles': profiles, 'search_query': search_query, 'custom_range': custom_range, 'html_name': 'Профиль'}
     return render(request, 'users/profiles.html', context)
 
 
@@ -33,7 +33,7 @@ def profiles(request):
 def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮДА СМОТРИ
     profile = Profile.objects.get(id=pk)
 
-    context = {'profile': profile}
+    context = {'profile': profile, 'html_name': 'Профиль'}
 
     return render(request, 'users/user-profile.html', context)
 
@@ -43,7 +43,7 @@ def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮ�
 def userAccount(request):
     profile = request.user.profile
 
-    context = {'profile': profile}
+    context = {'profile': profile, 'html_name': 'Профиль'}
     return render(request, 'users/account.html', context)
 
 

@@ -15,7 +15,7 @@ def projects(request):
     context = {
         'projects': projects,
         'search_query': search_query,
-        'html_name': 'projects',
+        'html_name': 'проекты',
         'tags': tags,
         'networks': networks
     }
@@ -30,7 +30,7 @@ def project(request, pk):
 @cache_page(60 * 15)  # Cache the view for 15 minutes
 def tools(request):
     tools = Tool.objects.all()
-    context = {'tools': tools, 'html_name': 'tools'}
+    context = {'tools': tools, 'html_name': 'Инструменты'}
     return render(request, 'projects/tools.html', context)
 
 

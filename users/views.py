@@ -82,6 +82,7 @@ def get_telegram_user_photo(user_id):
 
 @csrf_exempt
 def telegram_webhook(request):
+    user_id = None
     if request.method == 'POST':
         try:
             data = json.loads(request.body)

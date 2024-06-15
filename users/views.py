@@ -63,7 +63,6 @@ class TelegramUserView(APIView):
 logger = logging.getLogger(__name__)
 TELEGRAM_BOT_TOKEN = '7449944814:AAGDq0lhdGiCvc07g5M5GJQ65ZSR1eBCR-4'
 
-
 def get_telegram_user_photo(user_id):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUserProfilePhotos"
     params = {'user_id': user_id, 'limit': 1}
@@ -82,7 +81,6 @@ def get_telegram_user_photo(user_id):
 
 @csrf_exempt
 def telegram_webhook(request):
-    user_id = None
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -113,7 +111,8 @@ def telegram_webhook(request):
                 telegram_user.username = username
                 telegram_user.save()
 
-            django_user, created = User.objects.get_or_create(username=user_id)
+            # Using unique identifier for the Django user
+            django_user, created = User.objects.get_or_create(username=f"tg_{user_id}")
             if created:
                 django_user.first_name = first_name
                 django_user.last_name = last_name
@@ -127,7 +126,7 @@ def telegram_webhook(request):
                 profile.profile_image = profile_image_url
                 profile.save()
 
-            login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
+            login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{django_user.id}/"
             return JsonResponse({'status': 'success', 'login_url': login_url})
 
         except Exception as e:
@@ -137,7 +136,6 @@ def telegram_webhook(request):
     return JsonResponse({'status': 'failed', 'error': 'Invalid request method'}, status=405)
 
 def telegram_login(request, user_id):
-    telegram_user = get_object_or_404(TelegramUser, user_id=user_id)
-    django_user = get_object_or_404(User, username=telegram_user.user_id)
+    django_user = get_object_or_404(User, id=user_id)
     login(request, django_user)
     return redirect('account')

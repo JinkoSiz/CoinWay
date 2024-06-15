@@ -1,40 +1,39 @@
-from django.core import paginator
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.shortcuts import render, get_object_or_404
 from .models import Project, Tag, Tool
-from .utils import searchProjects, paginateProjects, searchTags, searchNetworks
+from .utils import searchProjects, searchTags, searchNetworks
+from django.views.decorators.cache import cache_page
 
 
-# Create your views here.
-
-
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 def projects(request):
     projects, search_query = searchProjects(request)
     tags = searchTags(request)
     networks = searchNetworks(request)
-    custom_range, projects = paginateProjects(request, projects, 10000)
 
-    context = {'projects': projects, 'search_query': search_query, 'custom_range': custom_range,
-               'html_name': 'projects', 'tags': tags, 'networks': networks}
+    projects = projects.prefetch_related('tags', 'networks').only('title', 'featured_image', 'tags__name', 'networks__name')
+
+    context = {
+        'projects': projects,
+        'search_query': search_query,
+        'html_name': 'projects',
+        'tags': tags,
+        'networks': networks
+    }
     return render(request, 'projects/projects.html', context)
 
 
 def project(request, pk):
-    projectObj = Project.objects.get(id=pk)
+    projectObj = get_object_or_404(Project, id=pk)
+    return render(request, 'projects/single-project.html', {'project': projectObj})
 
-    return render(request, 'projects/single-project.html', {'project': projectObj, 'form': form})
 
-
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 def tools(request):
     tools = Tool.objects.all()
     context = {'tools': tools, 'html_name': 'tools'}
-
     return render(request, 'projects/tools.html', context)
 
 
 def tool(request, pk):
-    toolObj = Tool.objects.get(id=pk)
-
+    toolObj = get_object_or_404(Tool, id=pk)
     return render(request, 'projects/single-tool.html', {'tool': toolObj})

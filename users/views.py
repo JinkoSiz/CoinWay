@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.views.decorators.cache import cache_page
+
 from .models import Profile, TelegramUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -18,6 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 def profiles(request):
     profiles, search_query = searchProfiles(request)
     custom_range, profiles = paginateProfiles(request, profiles, 6)
@@ -26,6 +29,7 @@ def profiles(request):
     return render(request, 'users/profiles.html', context)
 
 
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮДА СМОТРИ
     profile = Profile.objects.get(id=pk)
 
@@ -34,14 +38,12 @@ def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮ�
     return render(request, 'users/user-profile.html', context)
 
 
+@cache_page(60 * 15)  # Cache the view for 15 minutes
 @login_required(login_url='login')
 def userAccount(request):
     profile = request.user.profile
 
-    skills = profile.skill_set.all()
-    projects = profile.project_set.all()
-
-    context = {'profile': profile, 'skills': skills, 'projects': projects}
+    context = {'profile': profile}
     return render(request, 'users/account.html', context)
 
 
@@ -113,17 +115,22 @@ def telegram_webhook(request):
                 user.save()
 
             django_user, created = User.objects.get_or_create(username=user_id)
+            profile_image_url = get_telegram_user_photo(user_id)
+
             if created:
                 django_user.first_name = first_name
                 django_user.last_name = last_name or ''  # Устанавливаем пустую строку, если last_name отсутствует
                 django_user.username = user_id
                 django_user.set_unusable_password()
                 django_user.save()
-                Profile.objects.create(user=django_user, name=username)  # Создаем профиль для нового пользователя
+                profile_image_url = get_telegram_user_photo(user_id)
+                Profile.objects.create(user=django_user, name=username, profile_image=profile_image_url)
             else:
                 profile, profile_created = Profile.objects.get_or_create(user=django_user)
                 if profile_created:
                     profile.name = username
+                    profile_image_url = get_telegram_user_photo(user_id)
+                    profile.profile_image = profile_image_url
                     profile.save()
 
             login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{user_id}/"
@@ -140,4 +147,4 @@ def telegram_login(request, user_id):
     django_user = get_object_or_404(User, username=telegram_user.user_id)
 
     login(request, django_user)
-    return redirect('user-profile', pk=django_user.profile.pk)
+    return redirect('account')

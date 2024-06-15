@@ -860,6 +860,112 @@ iframe {
     line-height: 110%;
 }
 
+.checkin-block {
+    margin-top: 40px;
+}
+
+.counter {
+    max-width: 160px;
+    margin: 0 auto;
+}
+
+.counter .account-balance {
+    text-align: center;
+}
+
+.checkin-title {
+    color: var(--white, #EDEDED);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    margin-top: 20px;
+}
+
+.checkin-group {
+    margin-top: 10px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.checkin-item {
+    text-align: center;
+    padding: 6px 16px;
+    border-radius: 15px;
+    border: 1px solid var(--black-stroke-card, #373737);
+    background: var(--grey-bg-filter, #2F3030);
+    margin: 5px;
+    width: 76px;
+    height: 78px;
+}
+
+.checkin-item-date {
+    color: var(--white, #EDEDED);
+    text-align: center;
+    text-overflow: ellipsis;
+    font-family: Roboto;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+.checkin-item-icon {
+    color: #BEBEBE;
+    margin: 6px 0;
+}
+
+.checkin-item-gift {
+    color: var(--icon, #BEBEBE);
+    text-align: center;
+    text-overflow: ellipsis;
+    font-family: Roboto;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+.checkin-item.active {
+    border: 1px solid var(--9747-ff, #FCB602);
+}
+
+.checkin-item.active .checkin-item-icon {
+    color: #FCB602;
+}
+
+.checkin-btn {
+    border-radius: 8px;
+    background: var(--9747-ff, #FCB602);
+    padding: 10px 25px;
+    color: var(--bg-color, var(--black-bg, #0F0F0F));
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+    border: none;
+    margin: 15px auto 0 auto;
+    display: block;
+}
+
+.coming-soon {
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 24.004px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    margin-top: 59px;
+}
+
 @media screen and (max-width: 420px) {
     .projects-list-item-img img {
         width: 100%;

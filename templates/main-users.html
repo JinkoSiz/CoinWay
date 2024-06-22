@@ -13,7 +13,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="\static\images\icon.svg" type="image/x-icon" />
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}?v={{ STATIC_VERSION }}" />
 
 
     <title>DevSearch - Connect with Developers!</title>
@@ -38,5 +38,5 @@
         {% endblock content %}
     </div>
 </body>
-<script src="{% static 'js/users.js' %}"></script>
+<script src="{% static 'js/users.js' %}?v={{ STATIC_VERSION }}"></script>
 </html>

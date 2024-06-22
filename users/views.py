@@ -60,6 +60,7 @@ class TelegramUserView(APIView):
 logger = logging.getLogger(__name__)
 TELEGRAM_BOT_TOKEN = '7449944814:AAGDq0lhdGiCvc07g5M5GJQ65ZSR1eBCR-4'
 
+
 def get_telegram_user_photo(user_id):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUserProfilePhotos"
     params = {'user_id': user_id, 'limit': 1}
@@ -76,6 +77,7 @@ def get_telegram_user_photo(user_id):
                 return photo_url
     return None
 
+
 @csrf_exempt
 def telegram_webhook(request):
     if request.method == 'POST':
@@ -87,7 +89,8 @@ def telegram_webhook(request):
             last_name = user_data.get('last_name', '') or ''
             username = user_data.get('username', '')
 
-            logger.debug(f"Parsed user data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
+            logger.debug(
+                f"Parsed user data: user_id={user_id}, first_name={first_name}, last_name={last_name}, username={username}")
 
             if user_id is None:
                 logger.error("User ID is missing")
@@ -132,7 +135,13 @@ def telegram_webhook(request):
 
     return JsonResponse({'status': 'failed', 'error': 'Invalid request method'}, status=405)
 
+
 def telegram_login(request, user_id):
     django_user = get_object_or_404(User, id=user_id)
     login(request, django_user)
     return redirect('account')
+
+
+def userNotifications(request):
+    context = {'html_name': 'Уведомления'}
+    return render(request, 'users/notifications.html', context)

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'projects.apps.ProjectsConfig',
     'users.apps.UsersConfig',
     'checkin.apps.CheckinConfig',
+    'game.apps.GameConfig',
 
     'rest_framework',
     'corsheaders',

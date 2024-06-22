@@ -35,3 +35,8 @@ def tools(request):
 def tool(request, pk):
     toolObj = get_object_or_404(Tool, id=pk)
     return render(request, 'projects/single-tool.html', {'tool': toolObj})
+
+
+def news(request):
+    context = {'html_name': 'Новости'}
+    return render(request, 'projects/news.html', context)

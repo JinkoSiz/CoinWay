@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-6l*54-0b97ab1-j@z5)f9^fb0g3t71wolyvqjse3nk^q%-d%@!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+STATIC_VERSION = '1.1'
+
 CSRF_TRUSTED_ORIGINS = [
     'https://devsearch-zpska1977.b4a.run',
     'https://coin-way-prod.vercel.app/',

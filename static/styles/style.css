@@ -1286,6 +1286,7 @@ iframe {
 
 .campaigns-news-list-item-img {
     border-radius: 15px 15px 0px 0px;
+    overflow: hidden;
 }
 
 
@@ -1353,8 +1354,21 @@ iframe {
     line-height: 150%;
 }
 
+.campaigns-news-list-item-icon {
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    border-radius: 35px;
+}
+
+.campaigns-news-list-item-icon img {
+    width: 100%;
+    height: 100%;
+}
+
 .campaign-list img {
     width: 100%;
+    border-radius: 15px;
 }
 
 .campaign-list-title {

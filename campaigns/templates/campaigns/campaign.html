@@ -7,9 +7,11 @@
 </div>
 <div class="campaign-list-title">Catizen & Notcoin</div>
 <div class="campaigns-news-list-item-header">
+    {% for project in campaign.projects.all %}
     <div class="campaigns-news-list-item-icon">
-        <img src="Ellipse33.svg" alt="">
+        <img src="{{project.imageURL}}" alt="">
     </div>
+    {% endfor %}
     <div class="campaigns-news-list-item-name">Catizen</div>
     <div class="campaigns-news-list-item-checked">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">

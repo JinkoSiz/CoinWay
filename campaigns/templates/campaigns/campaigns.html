@@ -65,7 +65,7 @@
                     <div class="campaigns-news-list-item-header">
                         {% for project in campaign.projects.all %}
                         <div class="campaigns-news-list-item-icon">
-                            <img src="#" alt="">
+                            <img src="{{project.imageURL}}" alt="">
                         </div>
                         <div class="campaigns-news-list-item-name">
                             {{ project.title }}

@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-6l*54-0b97ab1-j@z5)f9^fb0g3t71wolyvqjse3nk^q%-d%@!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-STATIC_VERSION = '1.1'
+STATIC_VERSION = '1.3'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
 
 CSRF_TRUSTED_ORIGINS = [
     'https://devsearch-zpska1977.b4a.run',
@@ -52,6 +59,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'checkin.apps.CheckinConfig',
     'game.apps.GameConfig',
+    'campaigns.apps.CampaignsConfig',
 
     'rest_framework',
     'corsheaders',

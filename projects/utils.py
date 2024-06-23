@@ -4,12 +4,12 @@ import re
 
 
 def searchTags(request):
-    tags = Tag.objects.distinct().all()
+    tags = Tag.objects.distinct().only('name').all()
     return tags
 
 
 def searchNetworks(request):
-    networks = Network.objects.distinct().all()
+    networks = Network.objects.distinct().only('name', 'featured_image').all()
     return networks
 
 

@@ -22,7 +22,11 @@
     <div class="container">
         {% include 'navbar.html' %}
         {% if not project %}
-            {% include 'header.html' %}
+            {% if not campaigns %}
+                {% if not campaign %}
+                    {% include 'header.html' %}
+                {% endif %}
+            {% endif %}
         {% endif %}
         {% if messages %}
             {% for message in messages %}
@@ -38,6 +42,5 @@
         {% endblock content %}
     </div>
 </body>
-<script src="{% static 'uikit/app.js' %}"></script>
 <script src="{% static 'js/main.js' %}?v={{ STATIC_VERSION }}"></script>
 </html>

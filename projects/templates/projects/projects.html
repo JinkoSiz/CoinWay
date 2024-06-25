@@ -131,48 +131,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectsList = document.querySelector('.projects-list .row');
     const loadMoreButton = document.querySelector('#loadMoreButton');
     let currentPage = 1;
-    const totalPages = parseInt('{{ num_pages }}');
+    let totalPages = parseInt('{{ num_pages }}');
 
-    console.log('Total pages:', totalPages);
+    async function loadProjects(page) {
+        try {
+            const response = await fetch(`/api/projects?page=${page}`);
+            if (!response.ok) {
+                throw new Error(`Error fetching projects: ${response.statusText}`);
+            }
+            const data = await response.json();
+            renderProjects(data.projects);
+            if (page >= totalPages) {
+                loadMoreButton.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error loading projects:', error);
+        }
+    }
 
-    function loadProjects(page) {
-        console.log('Loading projects for page:', page);
-        fetch(`/api/projects?page=${page}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Data received:', data);
-                data.projects.forEach(project => {
-                    const projectElement = `
-                        <div class="col-6 projects-list-wrapper ${project.tags.join(' ')} ${project.archive ? 'Archive' : ''}">
-                            <a href="/project/${project.id}" class="projects-list-item">
-                                <div class="projects-list-item-header">
-                                    <div class="projects-list-item-img">
-                                        <img src="${project.imageURL}" alt="${project.title}">
-                                    </div>
-                                    <div class="projects-list-item-title">${project.title}</div>
-                                </div>
-                                <div class="tags">
-                                    ${project.tags.map(tag => `<div class="tags-item">${tag}</div>`).join('')}
-                                </div>
-                                <div class="filter-tags hide">
-                                    ${project.networks.map(network => `<div class="tags-item">${network}</div>`).join('')}
-                                </div>
-                            </a>
+    function renderProjects(projects) {
+        projects.forEach(project => {
+            const projectElement = `
+                <div class="col-6 projects-list-wrapper ${project.tags.join(' ')} ${project.archive ? 'Archive' : ''}">
+                    <a href="/project/${project.id}" class="projects-list-item">
+                        <div class="projects-list-item-header">
+                            <div class="projects-list-item-img">
+                                <img src="${project.imageURL}" alt="${project.title}">
+                            </div>
+                            <div class="projects-list-item-title">${project.title}</div>
                         </div>
-                    `;
-                    projectsList.insertAdjacentHTML('beforeend', projectElement);
-                });
-
-                if (data.page >= totalPages) {
-                    loadMoreButton.style.display = 'none';
-                }
-            })
-            .catch(error => console.error('Error loading projects:', error));
+                        <div class="tags">
+                            ${project.tags.map(tag => `<div class="tags-item">${tag}</div>`).join('')}
+                        </div>
+                        <div class="filter-tags hide">
+                            ${project.networks.map(network => `<div class="tags-item">${network}</div>`).join('')}
+                        </div>
+                    </a>
+                </div>
+            `;
+            projectsList.insertAdjacentHTML('beforeend', projectElement);
+        });
     }
 
     loadMoreButton.addEventListener('click', function() {
@@ -184,5 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProjects(currentPage);
 });
 </script>
+
 
 {% endblock content %}

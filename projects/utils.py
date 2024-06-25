@@ -18,12 +18,12 @@ def searchProjects(request):
     search_query = request.GET.get('search_query', '').strip()
     criteria = [item.strip() for item in re.split('[ ,]+', search_query) if item.strip()]
 
-    projects = Project.objects.all().only('title', 'featured_image', 'tags__name', 'networks__name', 'archive')
+    projects = Project.objects.all().only('id', 'title', 'featured_image', 'archive').prefetch_related('tags', 'networks')
     if criteria:
         query = Q()
         for item in criteria:
             query |= Q(tags__name__icontains=item) | Q(networks__name__icontains=item)
-        projects = projects.filter(query).prefetch_related('tags', 'networks')
+        projects = projects.filter(query)
 
     return projects, search_query
 

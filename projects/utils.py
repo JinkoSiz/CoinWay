@@ -4,22 +4,24 @@ import re
 
 
 def searchTags(request):
-    return Tag.objects.only('name').all()
+    tags = Tag.objects.distinct().only('name').all()
+    return tags
 
 
 def searchNetworks(request):
-    return Network.objects.only('name', 'featured_image').all()
+    networks = Network.objects.distinct().only('name', 'featured_image').all()
+    return networks
 
 
 def searchProjects(request):
     search_query = request.GET.get('search_query', '').strip()
     criteria = [item.strip() for item in re.split('[ ,]+', search_query) if item.strip()]
 
-    projects = Project.objects.only('title', 'featured_image').prefetch_related('tags', 'networks')
+    projects = Project.objects.distinct().only('title', 'featured_image', 'tags__name', 'networks__name')
     if criteria:
         query = Q()
         for item in criteria:
             query |= Q(tags__name__icontains=item) | Q(networks__name__icontains=item)
-        projects = projects.filter(query).distinct()
+        projects = projects.filter(query).prefetch_related('tags', 'networks')
 
     return projects, search_query

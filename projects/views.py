@@ -2,8 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from .models import Project, Tag, Tool
 from .utils import searchProjects, searchTags, searchNetworks
 from django.views.decorators.cache import cache_page
-from django.core.paginator import Paginator
-from django.http import JsonResponse
 
 
 @cache_page(60 * 15)  # Cache the view for 15 minutes
@@ -45,30 +43,3 @@ def tool(request, pk):
 def news(request):
     context = {'html_name': 'Новости'}
     return render(request, 'projects/news.html', context)
-
-
-def load_more_projects(request):
-    offset = int(request.GET.get('offset', 0))
-    limit = 10
-    search_query = request.GET.get('search_query', '')
-    networks = request.GET.get('networks', '').split()
-
-    projects = Project.objects.all()
-
-    if search_query:
-        projects = projects.filter(title__icontains=search_query)
-
-    if networks:
-        projects = projects.filter(networks__name__in=networks).distinct()
-
-    paginator = Paginator(projects, limit)
-    page_number = (offset // limit) + 1
-    page_obj = paginator.get_page(page_number)
-
-    projects_list = [{
-        'id': project.id,
-        'title': project.title,
-        'imageURL': project.imageURL
-    } for project in page_obj]
-
-    return JsonResponse({'projects': projects_list, 'has_more': page_obj.has_next()})

@@ -8,4 +8,6 @@ urlpatterns = [
     path('tool/<str:pk>/', views.tool, name='tool'),
     path('project/<str:pk>/', views.project, name='project'),
     path('news/', views.news, name='news'),
+
+    path('api/projects/', views.api_projects, name='api_projects'),
 ]

@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Project, Tag, Tool
-from .utils import searchProjects, searchTags, searchNetworks, get_cached_tags, get_cached_networks
+from .models import Project, Tool
+from .utils import searchProjects, get_cached_tags, get_cached_networks
 from django.views.decorators.cache import cache_page
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 
 @cache_page(60 * 15)  # Cache the view for 15 minutes
@@ -44,9 +45,14 @@ def news(request):
     return render(request, 'projects/news.html', context)
 
 
+@cache_page(60 * 15)  # Кэширование на 15 минут
 def api_projects(request):
     try:
         projects, search_query = searchProjects(request)
+        paginator = Paginator(projects, 10)  # Пагинация, 10 проектов на страницу
+        page_number = request.GET.get('page', 1)
+        page_obj = paginator.get_page(page_number)
+
         projects_data = [
             {
                 'id': project.id,
@@ -56,9 +62,9 @@ def api_projects(request):
                 'networks': [network.name for network in project.networks.all()],
                 'archive': project.archive,
             }
-            for project in projects
+            for project in page_obj
         ]
-        return JsonResponse({'projects': projects_data})
+        return JsonResponse({'projects': projects_data, 'page': page_obj.number, 'num_pages': paginator.num_pages})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 

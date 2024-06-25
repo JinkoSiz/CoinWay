@@ -1,16 +1,18 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Project, Tool
-from .utils import searchProjects, get_cached_tags, get_cached_networks
+from .models import Project, Tag, Tool
+from .utils import searchProjects, searchTags, searchNetworks
 from django.views.decorators.cache import cache_page
-from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 
 @cache_page(60 * 15)  # Cache the view for 15 minutes
 def projects(request):
     projects, search_query = searchProjects(request)
-    tags = get_cached_tags()
-    networks = get_cached_networks()
+    tags = searchTags(request)
+    networks = searchNetworks(request)
+
+    projects = projects.prefetch_related('tags', 'networks').only('title', 'featured_image', 'tags__name', 'networks__name')
 
     context = {
         'projects': projects,
@@ -45,26 +47,28 @@ def news(request):
     return render(request, 'projects/news.html', context)
 
 
-@cache_page(60 * 15)  # Кэширование на 15 минут
-def api_projects(request):
-    try:
-        projects, search_query = searchProjects(request)
-        paginator = Paginator(projects, 10)  # Пагинация, 10 проектов на страницу
-        page_number = request.GET.get('page', 1)
-        page_obj = paginator.get_page(page_number)
+def load_more_projects(request):
+    offset = int(request.GET.get('offset', 0))
+    limit = 10
+    search_query = request.GET.get('search_query', '')
+    networks = request.GET.get('networks', '').split()
 
-        projects_data = [
-            {
-                'id': project.id,
-                'title': project.title,
-                'imageURL': project.imageURL,
-                'tags': [tag.name for tag in project.tags.all()],
-                'networks': [network.name for network in project.networks.all()],
-                'archive': project.archive,
-            }
-            for project in page_obj
-        ]
-        return JsonResponse({'projects': projects_data, 'page': page_obj.number, 'num_pages': paginator.num_pages})
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+    projects = Project.objects.all()
 
+    if search_query:
+        projects = projects.filter(title__icontains=search_query)
+
+    if networks:
+        projects = projects.filter(networks__name__in=networks).distinct()
+
+    paginator = Paginator(projects, limit)
+    page_number = (offset // limit) + 1
+    page_obj = paginator.get_page(page_number)
+
+    projects_list = [{
+        'id': project.id,
+        'title': project.title,
+        'imageURL': project.imageURL
+    } for project in page_obj]
+
+    return JsonResponse({'projects': projects_list, 'has_more': page_obj.has_next()})

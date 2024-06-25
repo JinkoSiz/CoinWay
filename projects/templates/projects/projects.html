@@ -1,10 +1,7 @@
 {% extends 'main-projects.html' %}
 {% block content %}
-
-<!-- Main Section -->
 <main class="main">
     <section class="project-section">
-
         <div class="slider-tabs">
             <div class="slider-tabs-block">
                 <div class="slider-tabs-block-visible">
@@ -15,97 +12,49 @@
                 </div>
             </div>
         </div>
-
         <div class="filter-btns-block">
             <div class="filter-btns">
-                <button class="filter-btns-btn" id="popupBtn">
-                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="Group 2444">
-                            <path id="Vector"
-                                d="M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16Z"
-                                stroke="#202020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path id="Vector_2" d="M1 8.5H16" stroke="#202020" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path id="Vector_3"
-                                d="M8.5 1C10.376 3.05376 11.4421 5.71903 11.5 8.5C11.4421 11.281 10.376 13.9462 8.5 16C6.62404 13.9462 5.55794 11.281 5.5 8.5C5.55794 5.71903 6.62404 3.05376 8.5 1Z"
-                                stroke="#202020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </g>
-                    </svg>
-                    <p>Выбрать сеть</p>
-                </button>
-                <button class="filter-btns-btn">
-                    <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path id="Vector"
-                            d="M16.8717 2.32611C16.4514 1.90569 15.9525 1.57219 15.4034 1.34465C14.8542 1.11711 14.2656 1 13.6712 1C13.0768 1 12.4882 1.11711 11.9391 1.34465C11.3899 1.57219 10.891 1.90569 10.4708 2.32611L9.59866 3.19821L8.72656 2.32611C7.87775 1.4773 6.72652 1.00044 5.52612 1.00044C4.32572 1.00044 3.17448 1.4773 2.32567 2.32611C1.47686 3.17492 1 4.32616 1 5.52656C1 6.72696 1.47686 7.87819 2.32567 8.727L3.19777 9.5991L9.59866 16L15.9996 9.5991L16.8717 8.727C17.2921 8.30679 17.6256 7.80785 17.8531 7.25871C18.0807 6.70957 18.1978 6.12097 18.1978 5.52656C18.1978 4.93214 18.0807 4.34355 17.8531 3.7944C17.6256 3.24526 17.2921 2.74633 16.8717 2.32611Z"
-                            stroke="#202020" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <p>Избранное</p>
-                </button>
-                <button class="filter-btns-btn archive-btn">
-                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="&#208;&#176;&#209;&#128;&#209;&#133;&#208;&#184;&#208;&#178;">
-                            <path id="Vector" d="M10.1973 5.89746V9.99998L12.7613 12.5641" stroke="#0F0F0F"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <g id="Group 2459">
-                                <path id="Vector_2"
-                                    d="M2.33926 4.73957L1.57003 4.74265C1.57084 4.94542 1.65168 5.13966 1.79496 5.28314C1.93825 5.42661 2.13239 5.50771 2.33515 5.50879L2.33926 4.73957ZM4.94641 5.5211C5.04742 5.52157 5.14754 5.50214 5.24105 5.46392C5.33455 5.4257 5.41962 5.36943 5.49138 5.29834C5.56314 5.22724 5.6202 5.14271 5.65929 5.04956C5.69838 4.95642 5.71875 4.85648 5.71922 4.75547C5.71969 4.65445 5.70026 4.55433 5.66204 4.46083C5.62382 4.36732 5.56755 4.28226 5.49646 4.21049C5.42536 4.13873 5.34083 4.08168 5.24768 4.04258C5.15453 4.00349 5.0546 3.98313 4.95359 3.98266L4.94641 5.5211ZM3.09514 2.12422C3.09461 2.0232 3.07418 1.92328 3.03502 1.83016C2.99587 1.73704 2.93875 1.65254 2.86694 1.58149C2.79513 1.51045 2.71003 1.45424 2.6165 1.41608C2.52297 1.37792 2.42284 1.35856 2.32182 1.3591C2.2208 1.35963 2.12088 1.38006 2.02776 1.41922C1.93464 1.45837 1.85015 1.51549 1.7791 1.5873C1.70805 1.65911 1.65184 1.74421 1.61368 1.83774C1.57552 1.93127 1.55616 2.0314 1.5567 2.13242L3.09514 2.12422ZM1.81516 8.75388C1.8299 8.65335 1.82457 8.55089 1.79949 8.45243C1.77441 8.35397 1.73007 8.26145 1.66904 8.18022C1.608 8.09899 1.53147 8.03065 1.44388 7.97916C1.35628 7.92767 1.25935 7.89405 1.15869 7.88023C1.05803 7.86641 0.955624 7.87267 0.857394 7.89865C0.759164 7.92463 0.667054 7.96981 0.586384 8.03159C0.505715 8.09337 0.438083 8.17052 0.387396 8.25858C0.33671 8.34664 0.303972 8.44387 0.291073 8.54466L1.81516 8.75388ZM17.2355 2.96215C13.3176 -0.95575 6.98638 -0.996775 3.09412 2.89651L4.18129 3.98368C7.4633 0.702693 12.8202 0.72218 16.1483 4.04932L17.2355 2.96215ZM3.15976 17.0379C7.07766 20.9558 13.4089 20.9968 17.3011 17.1035L16.214 16.0164C12.932 19.2974 7.57509 19.2779 4.24693 15.9507L3.15976 17.0379ZM17.3011 17.1035C21.1934 13.2113 21.1534 6.88006 17.2355 2.96215L16.1483 4.04932C19.4755 7.37749 19.495 12.7344 16.214 16.0164L17.3011 17.1035ZM3.09412 2.89651L1.79465 4.19496L2.88284 5.28213L4.18129 3.98368L3.09412 2.89651ZM2.33515 5.50879L4.94641 5.5211L4.95359 3.98266L2.34336 3.97035L2.33515 5.50879ZM3.10848 4.73547L3.09514 2.12422L1.5567 2.13242L1.57003 4.74265L3.10848 4.73547ZM0.290047 8.54363C0.0793223 10.0847 0.228693 11.6537 0.726432 13.1273C1.22417 14.601 2.05673 15.9392 3.15873 17.0369L4.2459 15.9497C3.31178 15.0197 2.60603 13.8859 2.18408 12.6371C1.76214 11.3884 1.63551 10.0588 1.81413 8.75286L0.290047 8.54363Z"
-                                    fill="#0F0F0F" />
-                            </g>
-                        </g>
-                    </svg>
-                </button>
+                <button class="filter-btns-btn" id="popupBtn">Выбрать сеть</button>
+                <button class="filter-btns-btn archive-btn">Избранное</button>
             </div>
         </div>
-
         <div class="projects-list">
-            <div class="row">
-                <!-- Здесь будет загружаться контент через AJAX -->
+            <div class="row" id="projects-list">
+                {% for project in projects %}
+                <div class="col-6 projects-list-wrapper {% for tag in project.tags.all %}{{ tag.name }} {% endfor %}{% if project.archive %}Archive{% endif %}">
+                    <a href="{% url 'project' project.id %}" class="projects-list-item">
+                        <div class="projects-list-item-header">
+                            <div class="projects-list-item-img">
+                                <img src="{{ project.imageURL }}" alt="">
+                            </div>
+                            <div class="projects-list-item-title">{{ project.title }}</div>
+                        </div>
+                        <div class="tags">
+                            {% for tag in project.tags.all %}
+                            <div class="tags-item">{{ tag.name }}</div>
+                            {% endfor %}
+                        </div>
+                        <div class="filter-tags hide">
+                            {% for network in project.networks.all %}
+                            <div class="tags-item">{{ network.name }}</div>
+                            {% endfor %}
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
             </div>
         </div>
-        <button id="loadMoreButton">Load More</button>
+        <button id="loadMore">Load More</button>
     </section>
-    <a href="{% url 'tools' %}" class="tools-ico">
-        <svg xmlns="http://www.w3.org/2000/svg" width="112" height="136" viewBox="0 0 112 136" fill="none">
-            <g filter="url(#filter0_d_40_1623)">
-                <circle cx="68" cy="58" r="34" fill="#0098EB" />
-                <circle cx="68" cy="58" r="36" stroke="#EDEDED" stroke-width="4" />
-            </g>
-            <path d="M53 49.0002C53 47.4088 53.6322 45.8827 54.7574 44.7574C55.8827 43.6322 57.4088 43 59.0002 43H75.0006C76.592 43 78.1181 43.6322 79.2434 44.7574C80.3686 45.8827 81.0008 47.4088 81.0008 49.0002V53.0603C80.3365 52.9833 79.6656 52.9806 79.0007 53.0523V51.0002H55.0001V65.0006C55.0001 66.0615 55.4215 67.079 56.1717 67.8291C56.9218 68.5793 57.9393 69.0007 59.0002 69.0007H65.9844C65.545 69.5938 65.2424 70.2769 65.0983 71.0008H59.0002C57.4088 71.0008 55.8827 70.3686 54.7574 69.2434C53.6322 68.1181 53 66.592 53 65.0006V49.0002ZM73.0886 56.1744L70.2085 53.2943C70.021 53.1065 69.7665 53.0009 69.5012 53.0007C69.2358 53.0005 68.9812 53.1058 68.7934 53.2933C68.6057 53.4808 68.5001 53.7352 68.4999 54.0006C68.4997 54.266 68.6049 54.5205 68.7924 54.7083L71.9485 57.8624C72.2579 57.2664 72.6379 56.7037 73.0886 56.1744ZM65.2083 54.7083C65.3961 54.5205 65.5016 54.2659 65.5016 54.0003C65.5016 53.7347 65.3961 53.4801 65.2083 53.2923C65.0206 53.1045 64.7659 52.999 64.5003 52.999C64.2348 52.999 63.9801 53.1045 63.7923 53.2923L58.7922 58.2924C58.699 58.3853 58.6251 58.4957 58.5747 58.6172C58.5243 58.7387 58.4984 58.8689 58.4984 59.0004C58.4984 59.132 58.5243 59.2622 58.5747 59.3837C58.6251 59.5052 58.699 59.6156 58.7922 59.7085L63.7923 64.7086C63.8853 64.8016 63.9957 64.8753 64.1171 64.9257C64.2386 64.976 64.3688 65.0019 64.5003 65.0019C64.6318 65.0019 64.762 64.976 64.8835 64.9257C65.005 64.8753 65.1154 64.8016 65.2083 64.7086C65.3013 64.6156 65.3751 64.5052 65.4254 64.3838C65.4757 64.2623 65.5016 64.1321 65.5016 64.0006C65.5016 63.8691 65.4757 63.7389 65.4254 63.6174C65.3751 63.4959 65.3013 63.3855 65.2083 63.2926L60.9142 59.0004L65.2083 54.7083ZM80.7848 55.0483C81.5168 55.1323 81.7268 56.0084 81.2048 56.5324L79.2547 58.4824C78.9747 58.7624 78.7526 59.0948 78.6011 59.4606C78.4496 59.8265 78.3716 60.2185 78.3716 60.6145C78.3716 61.0105 78.4496 61.4025 78.6011 61.7684C78.7526 62.1342 78.9747 62.4666 79.2547 62.7466C79.5347 63.0265 79.8671 63.2486 80.2329 63.4002C80.5987 63.5517 80.9908 63.6297 81.3868 63.6297C81.7828 63.6297 82.1748 63.5517 82.5407 63.4002C82.9065 63.2486 83.2389 63.0265 83.5189 62.7466L85.4689 60.7965C85.9909 60.2745 86.8689 60.4845 86.9529 61.2165C87.0922 62.4051 86.9261 63.6097 86.4701 64.7162C86.0142 65.8227 85.2835 66.7946 84.3473 67.54C83.411 68.2855 82.3001 68.7798 81.1196 68.9763C79.939 69.1727 78.7279 69.0648 77.6007 68.6627L72.1485 74.1169C71.5831 74.6823 70.8162 75 70.0165 75C69.2168 75 68.4499 74.6823 67.8844 74.1169C67.319 73.5514 67.0013 72.7845 67.0013 71.9848C67.0013 71.5889 67.0793 71.1968 67.2308 70.8309C67.3823 70.4651 67.6044 70.1327 67.8844 69.8528L73.3366 64.4006C72.9344 63.2732 72.8265 62.0619 73.023 60.8812C73.2195 59.7004 73.714 58.5894 74.4597 57.6531C75.2054 56.7167 76.1776 55.9861 77.2844 55.5303C78.3912 55.0746 79.596 54.9087 80.7848 55.0483Z"
-                fill="#EDEDED" />
-            <defs>
-                <filter id="filter0_d_40_1623" x="0" y="0" width="136" height="136" filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                        result="hardAlpha" />
-                    <feOffset dy="10" />
-                    <feGaussianBlur stdDeviation="15" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0.0993055 0 0 0 0 0.366667 0 0 0 0 0.347044 0 0 0 0.1 0" />
-                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_40_1623" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_40_1623" result="shape" />
-                </filter>
-            </defs>
-        </svg>
-    </a>
-    </div>
-
 </main>
 
 <div class="filter-popup-bg">
     <div class="filter-popup">
         <button class="filter-popup-close"></button>
-        <form action="{% url 'projects' %}" method="get">
+        <form id="filterForm">
             <div class="filter-popup-input-block">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path
-                        d="M5.90904 1C4.93813 1 3.98901 1.28791 3.18173 1.82732C2.37444 2.36674 1.74523 3.13342 1.37368 4.03043C1.00213 4.92744 0.904912 5.91449 1.09433 6.86675C1.28374 7.81901 1.75129 8.69372 2.43783 9.38026C3.12437 10.0668 3.99908 10.5343 4.95134 10.7238C5.9036 10.9132 6.89064 10.816 7.78765 10.4444C8.68466 10.0728 9.45135 9.44365 9.99076 8.63636C10.5302 7.82907 10.8181 6.87996 10.8181 5.90904C10.818 4.60711 10.3008 3.35852 9.38017 2.43792C8.45956 1.51731 7.21098 1.00008 5.90904 1Z"
-                        stroke="#BEBEBE" stroke-miterlimit="10" />
-                    <path d="M9.57129 9.57153L12.9997 13" stroke="#BEBEBE" stroke-miterlimit="10"
-                        stroke-linecap="round" />
-                </svg>
                 <input autocomplete="off" type="search" placeholder="Search" class="filter-popup-input">
-                <input autocomplete="off" name="search_query" type="hidden" placeholder="Search"
-                    class="filter-popup-input-secret">
+                <input autocomplete="off" name="search_query" type="hidden" class="filter-popup-input-secret">
             </div>
             <div class="filter-popup-value-block">
                 {% for network in networks %}
@@ -119,7 +68,7 @@
                 {% endfor %}
             </div>
             <div class="filter-popup-actions">
-                <a href="{% url 'projects' %}" class="filter-popup-reset">Сбросить</a>
+                <a href="#" class="filter-popup-reset">Сбросить</a>
                 <button type="submit" class="filter-popup-accept">Готово</button>
             </div>
         </form>
@@ -127,61 +76,165 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const projectsList = document.querySelector('.projects-list .row');
-    const loadMoreButton = document.querySelector('#loadMoreButton');
-    let currentPage = 1;
-    let totalPages = parseInt('{{ num_pages }}');
+document.addEventListener('DOMContentLoaded', () => {
+    let offset = 10;  // Начальный офсет для загрузки данных
+    let isLoading = false;  // Флаг загрузки
+    let hasMore = true;  // Флаг наличия дополнительных данных
+    let filters = {};  // Объект для хранения активных фильтров
 
-    async function loadProjects(page) {
-        try {
-            const response = await fetch(`/api/projects?page=${page}`);
-            if (!response.ok) {
-                throw new Error(`Error fetching projects: ${response.statusText}`);
-            }
-            const data = await response.json();
-            renderProjects(data.projects);
-            if (page >= totalPages) {
-                loadMoreButton.style.display = 'none';
-            }
-        } catch (error) {
-            console.error('Error loading projects:', error);
+    const loadMoreButton = document.querySelector('#loadMore');
+    const projectsList = document.querySelector('#projects-list');
+    const filterForm = document.querySelector('#filterForm');
+    const filterPopup = document.querySelector('.filter-popup');
+    const filterPopupBg = document.querySelector('.filter-popup-bg');
+    const openPopupBtn = document.querySelector('#popupBtn');
+    const closePopupBtn = document.querySelector('.filter-popup-close');
+    const acceptPopupBtn = document.querySelector('.filter-popup-accept');
+    const resetBtn = document.querySelector('.filter-popup-reset');
+    const popupFilterItems = document.querySelectorAll('.filter-popup-value-item');
+
+    openPopupBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        filterPopup.classList.add('active');
+        filterPopupBg.classList.add('active');
+    });
+
+    closePopupBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        filterPopup.classList.remove('active');
+        filterPopupBg.classList.remove('active');
+    });
+
+    acceptPopupBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyFilters();
+    });
+
+    resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        resetFilters();
+    });
+
+    popupFilterItems.forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('active');
+            updateFilterObject(item);
+        });
+    });
+
+    loadMoreButton.addEventListener('click', () => {
+        if (isLoading || !hasMore) return;
+
+        isLoading = true;
+        loadMoreButton.textContent = 'Loading...';
+
+        const searchQuery = document.querySelector('.filter-popup-input-secret').value;
+        const activeNetworks = Object.keys(filters).join(',');
+
+        fetch(`/load_more_projects/?offset=${offset}&search_query=${searchQuery}&networks=${activeNetworks}`)
+            .then(response => response.json())
+            .then(data => {
+                data.projects.forEach(project => {
+                    const projectItem = document.createElement('div');
+                    projectItem.className = 'col-6 projects-list-wrapper';
+                    projectItem.innerHTML = `
+                        <a href="/project/${project.id}" class="projects-list-item">
+                            <div class="projects-list-item-header">
+                                <div class="projects-list-item-img">
+                                    <img src="${project.imageURL}" alt="">
+                                </div>
+                                <div class="projects-list-item-title">${project.title}</div>
+                            </div>
+                        </a>
+                    `;
+                    projectsList.appendChild(projectItem);
+                });
+                offset += 10;
+                isLoading = false;
+                loadMoreButton.textContent = 'Load More';
+                hasMore = data.has_more;
+                if (!hasMore) {
+                    loadMoreButton.textContent = 'No More Projects';
+                    loadMoreButton.disabled = true;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                isLoading = false;
+                loadMoreButton.textContent = 'Load More';
+            });
+    });
+
+    function updateFilterObject(item) {
+        const network = item.dataset.net;
+        if (item.classList.contains('active')) {
+            filters[network] = true;
+        } else {
+            delete filters[network];
         }
     }
 
-    function renderProjects(projects) {
-        projects.forEach(project => {
-            const projectElement = `
-                <div class="col-6 projects-list-wrapper ${project.tags.join(' ')} ${project.archive ? 'Archive' : ''}">
-                    <a href="/project/${project.id}" class="projects-list-item">
-                        <div class="projects-list-item-header">
-                            <div class="projects-list-item-img">
-                                <img src="${project.imageURL}" alt="${project.title}">
-                            </div>
-                            <div class="projects-list-item-title">${project.title}</div>
-                        </div>
-                        <div class="tags">
-                            ${project.tags.map(tag => `<div class="tags-item">${tag}</div>`).join('')}
-                        </div>
-                        <div class="filter-tags hide">
-                            ${project.networks.map(network => `<div class="tags-item">${network}</div>`).join('')}
-                        </div>
-                    </a>
-                </div>
-            `;
-            projectsList.insertAdjacentHTML('beforeend', projectElement);
-        });
+    function applyFilters() {
+        const filterQuery = Object.keys(filters).join(',');
+        document.querySelector('.filter-popup-input-secret').value = filterQuery;
+        projectsList.innerHTML = '';  // Очистить список проектов
+        offset = 0;  // Сбросить офсет
+        hasMore = true;  // Сбросить флаг наличия дополнительных данных
+        loadProjects();
     }
 
-    loadMoreButton.addEventListener('click', function() {
-        currentPage += 1;
-        loadProjects(currentPage);
-    });
+    function resetFilters() {
+        popupFilterItems.forEach(item => item.classList.remove('active'));
+        filters = {};
+        document.querySelector('.filter-popup-input-secret').value = '';
+        projectsList.innerHTML = '';  // Очистить список проектов
+        offset = 0;  // Сбросить офсет
+        hasMore = true;  // Сбросить флаг наличия дополнительных данных
+        loadProjects();
+    }
 
-    // Load initial projects
-    loadProjects(currentPage);
+    function loadProjects() {
+        if (isLoading || !hasMore) return;
+
+        isLoading = true;
+        loadMoreButton.textContent = 'Loading...';
+
+        const searchQuery = document.querySelector('.filter-popup-input-secret').value;
+        const activeNetworks = Object.keys(filters).join(',');
+
+        fetch(`/load_more_projects/?offset=${offset}&search_query=${searchQuery}&networks=${activeNetworks}`)
+            .then(response => response.json())
+            .then(data => {
+                data.projects.forEach(project => {
+                    const projectItem = document.createElement('div');
+                    projectItem.className = 'col-6 projects-list-wrapper';
+                    projectItem.innerHTML = `
+                        <a href="/project/${project.id}" class="projects-list-item">
+                            <div class="projects-list-item-header">
+                                <div class="projects-list-item-img">
+                                    <img src="${project.imageURL}" alt="">
+                                </div>
+                                <div class="projects-list-item-title">${project.title}</div>
+                            </div>
+                        </a>
+                    `;
+                    projectsList.appendChild(projectItem);
+                });
+                offset += 10;
+                isLoading = false;
+                loadMoreButton.textContent = 'Load More';
+                hasMore = data.has_more;
+                if (!hasMore) {
+                    loadMoreButton.textContent = 'No More Projects';
+                    loadMoreButton.disabled = true;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                isLoading = false;
+                loadMoreButton.textContent = 'Load More';
+            });
+    }
 });
 </script>
-
-
 {% endblock content %}

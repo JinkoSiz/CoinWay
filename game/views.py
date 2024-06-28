@@ -24,24 +24,28 @@ def claim_exp(request):
             profile.exp += 50  # Добавляем 50 опыта, можно изменить это значение
             profile.last_claimed = now
             profile.save()
-            message = "Вы успешно получили 50 опыта!"
+            message = "You got 50 exp!"
             logger.info("Experience claimed successfully")
         else:
             next_claim_time = profile.last_claimed + timedelta(hours=12)
             time_remaining = next_claim_time - now
-            next_claim_time_str = str(time_remaining).split('.')[0]  # Убираем микросекунды
-            message = f"Get after {next_claim_time_str}"
+            if time_remaining.total_seconds() > 0:
+                next_claim_time_str = str(time_remaining).split('.')[0]  # Убираем микросекунды
+                message = f"You can get more in {next_claim_time_str}."
+            else:
+                message = "Вы можете получить опыт сейчас."
             logger.info(f"Cannot claim experience yet, time remaining: {next_claim_time_str}")
 
         return render(request, 'game/game.html',
-                      {'message': message, 'exp': profile.exp, 'next_claim_time_str': next_claim_time_str, 'html_name': 'Игра'})
+                      {'message': message, 'exp': profile.exp, 'next_claim_time_str': next_claim_time_str})
 
     if profile.last_claimed:
         next_claim_time = profile.last_claimed + timedelta(hours=12)
         time_remaining = next_claim_time - now
-        next_claim_time_str = str(time_remaining).split('.')[0]  # Убираем микросекунды
+        if time_remaining.total_seconds() > 0:
+            next_claim_time_str = str(time_remaining).split('.')[0]  # Убираем микросекунды
 
-    return render(request, 'game/game.html', {'exp': profile.exp, 'next_claim_time_str': next_claim_time_str, 'html_name': 'Игра'})
+    return render(request, 'game/game.html', {'exp': profile.exp, 'next_claim_time_str': next_claim_time_str})
 
 
 def game(request):

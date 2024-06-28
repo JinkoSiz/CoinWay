@@ -42,6 +42,8 @@
   </p>
 </div>
 
+After conducting thorough testing and analysis, we have determined the best technologies for future scalability of our web application. Based on these findings, we have decided to rewrite the backend using Node.js and React. These changes will provide better performance and flexibility, enabling us to scale our project more efficiently and meet the growing demands of our users.
+
 ## Available Commands
 
 In the project directory, you can run:

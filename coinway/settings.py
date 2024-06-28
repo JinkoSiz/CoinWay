@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6l*54-0b97ab1-j@z5)f9^fb0g3t71wolyvqjse3nk^q%-d%@!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 STATIC_VERSION = '2.4.4'
 
@@ -43,7 +43,10 @@ CSRF_TRUSTED_ORIGINS = [
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',
                  'devsearch-zpska1977.b4a.run',
                  'coin-way-prod.vercel.app',
-                 'coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app',]
+                 'coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app',
+                 'coin-way-prod-git-test-v2-jinkosizs-projects-4c8f9ac9.vercel.app',
+                 'coin-way-prod-git-test-v1-jinkosizs-projects-4c8f9ac9.vercel.app',
+                 ]
 
 # Application definition
 

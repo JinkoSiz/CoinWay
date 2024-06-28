@@ -32,6 +32,9 @@
         </div>
         <div class="exp-count">15 616</div>
     </div>
+
+    <h1>{{ message }}</h1>
+    <form method="post" action="{% url 'claim_exp' %}">
     <div class="exp-date">
         <div class="clock-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -40,5 +43,8 @@
         </div>
         <div class="exp-date-info">Get after 03:40:11</div>
     </div>
+        {% csrf_token %}
+        <button type="submit">Получить опыт</button>
+    </form>
 </div>
 {% endblock content %}

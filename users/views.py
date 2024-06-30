@@ -1,5 +1,6 @@
 import requests
 import logging
+import os
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.views.decorators.cache import cache_page
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 
 from .models import Profile, TelegramUser
 from rest_framework.views import APIView
@@ -74,7 +77,12 @@ def get_telegram_user_photo(user_id):
             if response.status_code == 200:
                 file_path = response.json()['result']['file_path']
                 photo_url = f"https://api.telegram.org/file/bot{TELEGRAM_BOT_TOKEN}/{file_path}"
-                return photo_url
+
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(requests.get(photo_url).content)
+                img_temp.flush()
+
+                return File(img_temp)
     return None
 
 
@@ -120,11 +128,11 @@ def telegram_webhook(request):
                 django_user.save()
 
             profile, profile_created = Profile.objects.get_or_create(user=django_user)
-            if profile_created or profile.profile_image is None:
-                profile.name = username
-                profile_image_url = get_telegram_user_photo(user_id)
-                profile.profile_image = profile_image_url
-                profile.save()
+            profile.name = username
+            profile_image_file = get_telegram_user_photo(user_id)
+            if profile_image_file:
+                profile.profile_image.save(f"telegram_{user_id}.jpg", profile_image_file)
+            profile.save()
 
             login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{django_user.id}/"
             return JsonResponse({'status': 'success', 'login_url': login_url})

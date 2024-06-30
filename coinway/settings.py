@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6l*54-0b97ab1-j@z5)f9^fb0g3t71wolyvqjse3nk^q%-d%@!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-STATIC_VERSION = '3.0.1'
+STATIC_VERSION = '3.0.2'
 
 CACHES = {
     "default": {

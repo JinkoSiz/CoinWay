@@ -30,6 +30,7 @@ env = environ.Env(
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 TG_KEY = env('TG_KEY')
+LINK_LOGIN = env('LINK_LOGIN')
 
 # Create your views here.
 
@@ -148,7 +149,7 @@ def telegram_webhook(request):
                 profile.profile_image.save(f"telegram_{user_id}.jpg", profile_image_file)
             profile.save()
 
-            login_url = f"https://coin-way-prod-git-main-jinkosizs-projects-4c8f9ac9.vercel.app/users/telegram-login/{django_user.id}/"
+            login_url = f"{LINK_LOGIN}/{django_user.id}/"
             return JsonResponse({'status': 'success', 'login_url': login_url})
 
         except Exception as e:

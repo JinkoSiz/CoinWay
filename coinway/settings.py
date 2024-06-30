@@ -10,8 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import environ
 from datetime import timedelta
 from pathlib import Path
+
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,8 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+DJANGO_SECRET = env('DJANGO_SECRET')
+AWS_ID = env('AWS_ID')
+AWS_STORAGE_NAME = env('AWS_STORAGE_NAME')
+AWS_KEY = env('AWS_KEY')
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6l*54-0b97ab1-j@z5)f9^fb0g3t71wolyvqjse3nk^q%-d%@!'
+SECRET_KEY = f'{DJANGO_SECRET}'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -212,9 +225,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = 'jinkosiz'
-AWS_SECRET_ACCESS_KEY = '1953b273e02cbc5fd3ad39a39af8d777'
-AWS_STORAGE_BUCKET_NAME = '7777fb51-34f4640c-d71e-4ace-b57e-e7997a1f4952'
+AWS_ACCESS_KEY_ID = f'{AWS_ID}'
+AWS_SECRET_ACCESS_KEY = f'{AWS_KEY}'
+AWS_STORAGE_BUCKET_NAME = f'{AWS_STORAGE_NAME}'
 AWS_S3_ENDPOINT_URL = 'https://s3.timeweb.com'
 
 AWS_QUERYSTRING_AUTH = False

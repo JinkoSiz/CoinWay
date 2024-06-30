@@ -42,6 +42,10 @@ def userProfile(request, pk):  # ВОТ ЭТО ХУЙНЯ ВЫБЛЯДОК СЮ�
 @login_required(login_url='login')
 def userAccount(request):
     profile = request.user.profile
+    profile_image_file = get_telegram_user_photo(request.user.username.replace("tg_", ""))
+    if profile_image_file:
+        profile.profile_image.save(f"telegram_{request.user.username.replace('tg_', '')}.jpg", profile_image_file)
+        profile.save()
 
     context = {'profile': profile, 'html_name': 'Профиль'}
     return render(request, 'users/account.html', context)

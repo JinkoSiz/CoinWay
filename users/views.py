@@ -1,6 +1,7 @@
 import requests
 import logging
 import os
+import environ
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -19,7 +20,16 @@ from .serializers import TelegramUserSerializer
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from pathlib import Path
 
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+TG_KEY = env('TG_KEY')
 
 # Create your views here.
 
@@ -65,7 +75,7 @@ class TelegramUserView(APIView):
 
 
 logger = logging.getLogger(__name__)
-TELEGRAM_BOT_TOKEN = '7449944814:AAGDq0lhdGiCvc07g5M5GJQ65ZSR1eBCR-4'
+TELEGRAM_BOT_TOKEN = f'{TG_KEY}'
 
 
 def get_telegram_user_photo(user_id):

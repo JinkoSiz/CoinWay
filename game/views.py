@@ -31,7 +31,7 @@ def claim_exp(request):
             time_remaining = next_claim_time - now
             if time_remaining.total_seconds() > 0:
                 next_claim_time_str = str(time_remaining).split('.')[0]  # Убираем микросекунды
-                message = f"Get after {next_claim_time_str}."
+                message = f"Get after {next_claim_time_str}"
             else:
                 message = "Вы можете получить опыт сейчас."
             logger.info(f"Cannot claim experience yet, time remaining: {next_claim_time_str}")

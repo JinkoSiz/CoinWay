@@ -1115,6 +1115,7 @@ iframe {
     border: 1px solid var(--black-stroke-card, #373737);
     background: var(--grey-bg-filter, #2F3030);
     margin-top: 8px;
+    width: 100%;
 }
 
 .exp-date-info {
@@ -1422,6 +1423,36 @@ iframe {
     margin-left: 10px;
     padding-top: 2px;
 }
+
+.coming-soon-block {
+    display: block;
+    padding: 30px;
+    max-width: 270px;
+    margin: 190px auto 0 auto;
+    border-radius: 15px;
+    border: 1px solid var(--black-stroke-card, #373737);
+    background: var(--black-bg-card, #202020);
+}
+
+.coming-soon-block img {
+    max-width: 90px;
+    max-height: 90px;
+    margin: 0 auto;
+    display: block;
+}
+
+.coming-soon-block p {
+    color: var(--white, #EDEDED);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+    text-align: center;
+    margin-top: 20px;
+}
+
 
 
 @media screen and (max-width: 420px) {

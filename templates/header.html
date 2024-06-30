@@ -10,7 +10,11 @@
       </a>
     </li>
     <li class="project-title-text">
+      {% if html_name %}
       <h1>{{html_name}}</h1>
+      {% else %}
+      <h1>COMING SOON</h1>
+      {% endif %}
     </li>
     <li class="project-title-notifications">
       <a href="{% url 'notifications' %}" class="project-title-notifications-link">

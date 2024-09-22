@@ -1,47 +1,49 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.cache import cache_page
+
 from .models import Project, Tag, Tool
 from .utils import searchProjects, searchTags, searchNetworks
-from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.conf import settings
 
-# Время кэширования в секундах
+# Время кэширования в секундах (можно задать для каждого типа данных)
 CACHE_TTL = 60 * 15  # 15 минут
 
 
 def projects(request):
     search_query = request.GET.get('query', '')
 
-    # Генерируем уникальный ключ для кэша
+    # Кэширование только проектов
     cache_key = f"projects:{search_query}"
+    cached_data = cache.get(cache_key)
 
-    # Попытка получить кэшированные данные
-    cached_projects = cache.get(cache_key)
-
-    if not cached_projects:
+    if not cached_data:
         projects, search_query = searchProjects(request)
-        tags = searchTags(request)
-        networks = searchNetworks(request)
+
+        # Кэширование тегов и сетей отдельно
+        tags = cache.get_or_set('tags', searchTags(request), CACHE_TTL)
+        networks = cache.get_or_set('networks', searchNetworks(request), CACHE_TTL)
 
         # Оптимизация запросов к базе данных
         projects = projects.prefetch_related('tags', 'networks').only('title', 'featured_image', 'tags__name',
                                                                       'networks__name')
 
-        cached_projects = {
+        cached_data = {
             'projects': projects,
+            'search_query': search_query,
             'tags': tags,
-            'networks': networks,
-            'search_query': search_query
+            'networks': networks
         }
 
-        # Устанавливаем кэш с ключом и значением
-        cache.set(cache_key, cached_projects, CACHE_TTL)
+        # Сохранение в кэш
+        cache.set(cache_key, cached_data, CACHE_TTL)
+
+    # Извлекаем данные из кэша
     else:
-        # Если данные найдены в кэше, получаем их
-        search_query = cached_projects['search_query']
-        projects = cached_projects['projects']
-        tags = cached_projects['tags']
-        networks = cached_projects['networks']
+        projects = cached_data['projects']
+        search_query = cached_data['search_query']
+        tags = cached_data['tags']
+        networks = cached_data['networks']
 
     context = {
         'projects': projects,
@@ -54,10 +56,15 @@ def projects(request):
     return render(request, 'projects/projects.html', context)
 
 
-# Кэширование на уровне представления для "инструментов"
-@cache_page(CACHE_TTL)  # Кэширование для 15 минут
+def project(request, pk):
+    projectObj = get_object_or_404(Project, id=pk)
+    return render(request, 'projects/single-project.html', {'project': projectObj})
+
+
+# Оптимизация кэширования для инструментов
 def tools(request):
-    tools = cache.get_or_set('tools', Tool.objects.all(), CACHE_TTL)
+    tools = cache.get_or_set('tools', Tool.objects.all().only('title', 'description'),
+                             timeout=0)  # Долговременное кэширование
     context = {'tools': tools, 'html_name': 'Инструменты'}
     return render(request, 'projects/tools.html', context)
 

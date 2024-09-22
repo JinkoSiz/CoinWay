@@ -31,6 +31,7 @@ DJANGO_SECRET = env('DJANGO_SECRET')
 AWS_ID = env('AWS_ID')
 AWS_STORAGE_NAME = env('AWS_STORAGE_NAME')
 AWS_KEY = env('AWS_KEY')
+REDIS_URL = env('REDIS_REDIS_URL')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = f'{DJANGO_SECRET}'
@@ -41,9 +42,12 @@ DEBUG = False
 STATIC_VERSION = '3.0.3'
 
 CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "unique-snowflake",
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': REDIS_URL,  # Адрес Redis-сервера
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
     }
 }
 
